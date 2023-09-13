@@ -1,0 +1,64 @@
+.container {
+  width: 232px;
+  height: 252px;
+}
+.content {
+  height: 100%;
+  font-size: 20px;
+  color: #4a4a4a;
+  padding-top: 12px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 13px;
+}
+.item {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  padding-left: 20px;
+}
+.item:hover {
+  background-color: #F1FCFF;
+}
+.input {
+  visibility: hidden;
+  width: 22px;
+}
+.name {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.header {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+.name::before {
+  content: '';
+  border: 1px solid #2196F3;
+  border-radius: 5px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+.input:checked + .name::after {
+  content: '';
+  border-bottom: 2px solid #1677ff;
+  width: 6px;
+  height: 13px;
+  border-right: 2px solid #1677ff;
+  rotate: 45deg;
+  position: absolute;
+  left: 7px;
+}

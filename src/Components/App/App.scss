@@ -1,0 +1,21 @@
+@import "../../fonts.scss";
+
+body {
+  background-color: #F3F7FA;
+}
+.App {
+  display: flex;
+  justify-content: center;
+  min-width:100%;
+}
+.App img {
+  margin-bottom:10px;
+}
+
+.Wrapper {
+  width: 757px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start ;
+}

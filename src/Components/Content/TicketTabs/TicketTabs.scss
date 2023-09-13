@@ -1,0 +1,24 @@
+.ant-tabs-tab-active {
+  background-color: #2196F3 !important;
+}
+.ant-tabs-nav-list {
+  width: 100% !important;
+}
+.ant-tabs-tab {
+  width: 168px;
+  height: 50px;
+  display: flex !important;
+  justify-content: center;
+  font-size: 12px !important;
+  font-family: "open-sans";
+  font-weight: 500;
+  background-color: #fff;
+}
+.ant-tabs-tab:nth-child(1) {
+  border-top-left-radius: 7px !important;
+  border-bottom-left-radius: 7px !important;
+}
+.ant-tabs-tab:nth-child(3) {
+  border-top-right-radius: 7px !important;
+  border-bottom-right-radius: 7px !important;
+}
