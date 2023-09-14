@@ -1,6 +1,8 @@
 import React from 'react';
 import { ConfigProvider, Tabs } from 'antd';
+import { useDispatch } from 'react-redux';
 
+import { ticketsActions } from '../../../store';
 import TicketList from '../TicketList/TicketList';
 import './TicketTabs.scss';
 
@@ -23,6 +25,19 @@ const items = [
 ];
 
 export default function TicketTabs() {
+  const dispatchFn = useDispatch();
+
+  const changeSortHandler = (key) => {
+    if (key === '1') {
+      dispatchFn(ticketsActions.sortCheap());
+    }
+    if (key === '2') {
+      dispatchFn(ticketsActions.sortFast());
+    }
+    if (key === '3') {
+      dispatchFn(ticketsActions.sortOptimal());
+    }
+  };
   return (
     <ConfigProvider
       theme={{
@@ -36,7 +51,7 @@ export default function TicketTabs() {
         },
       }}
     >
-      <Tabs defaultActiveKey="1" items={items} />
+      <Tabs defaultActiveKey="1" items={items} onChange={changeSortHandler} />
     </ConfigProvider>
   );
 }

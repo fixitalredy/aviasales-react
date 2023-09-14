@@ -12,7 +12,8 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "airbnb",
-    "prettier"
+    "prettier",
+    "plugin:react-redux/recommended"
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
@@ -26,7 +27,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["react", "prettier", "import", "react-redux"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -39,6 +40,7 @@
       }
     ],
     "linebreak-style": [0, "unix"],
+    "no-param-reassign": ["error", { "props": false }],
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
     "quotes": ["error", "single"],
     "no-nested-ternary": "off",

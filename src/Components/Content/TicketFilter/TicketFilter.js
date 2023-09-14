@@ -1,5 +1,8 @@
 import { Card } from 'antd';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ticketsActions } from '../../../store';
 
 import styles from './TicketFilter.module.scss';
 
@@ -7,32 +10,55 @@ export default function TicketFilter() {
   const filters = [
     {
       name: 'Все',
-      cheсked: false,
-      id: 1,
+      id: '1',
     },
     {
       name: 'Без пересадок',
-      cheсked: false,
-      id: 2,
+      id: '2',
     },
     {
       name: '1 пересадка',
-      cheсked: false,
-      id: 3,
+      id: '3',
     },
     {
       name: '2 пересадки',
-      cheсked: false,
-      id: 4,
+      id: '4',
     },
     {
       name: '3 пересадки',
-      cheсked: false,
-      id: 5,
+      id: '5',
     },
   ];
+
+  const dispatch = useDispatch();
+  const selector = (state) => state.filters;
+  const allFilters = useSelector(selector);
+
+  const changeFilters = (e) => {
+    const { id, checked } = e.target;
+    if (checked) {
+      dispatch(ticketsActions.addFilter([id]));
+    }
+    if (checked && allFilters.length > 2) {
+      dispatch(ticketsActions.addFilter([id, '1']));
+    }
+    if (!checked) {
+      dispatch(ticketsActions.removeFilter([id]));
+    }
+    if (checked && id === '1') {
+      dispatch(ticketsActions.addFilter(['2', '3', '4', '5']));
+    }
+    if (!checked && id === '1') {
+      dispatch(ticketsActions.removeFilter(['2', '3', '4', '5']));
+    }
+    if (!checked && id !== '1') {
+      dispatch(ticketsActions.removeFilter(['1', id]));
+    }
+  };
+
   return (
     <div className={styles.container}>
+      {allFilters}
       <Card
         className={styles.content}
         bodyStyle={{
@@ -41,10 +67,15 @@ export default function TicketFilter() {
         }}
       >
         <h1 className={styles.header}>КОЛИЧЕСТВО ПЕРЕСАДОК</h1>
-        <form className={styles.form}>
+        <form className={styles.form} onChange={changeFilters}>
           {filters.map((filter) => (
-            <div className={styles.item}>
-              <input type="checkbox" id={filter.id} className={styles.input} />
+            <div className={styles.item} key={filter.id}>
+              <input
+                type="checkbox"
+                id={filter.id}
+                className={styles.input}
+                checked={allFilters.includes(filter.id)}
+              />
               <label htmlFor={filter.id} className={styles.name}>
                 {filter.name}
               </label>
