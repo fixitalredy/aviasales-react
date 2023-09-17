@@ -7,7 +7,7 @@ import TicketFilter from './TicketFilter/TicketFilter';
 
 export default function Content() {
   return (
-    <main className="Content">
+    <main className={styles.content}>
       <Row className={styles.row}>
         <Col lg={8} className={styles.colleft}>
           <TicketFilter />

@@ -2,7 +2,7 @@ import React from 'react';
 import { ConfigProvider, Tabs } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import { ticketsActions } from '../../../store';
+import { ticketsActions } from '../../../store/ticketsSlice';
 import TicketList from '../TicketList/TicketList';
 import './TicketTabs.scss';
 

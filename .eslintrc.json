@@ -36,7 +36,8 @@
         "parser": "flow",
         "trailingComma": "es5",
         "endOfLine": "auto",
-        "tabWidth": 2
+        "tabWidth": 2,
+        "printWidth": 80
       }
     ],
     "linebreak-style": [0, "unix"],
@@ -49,6 +50,7 @@
     "react/prop-types": 0,
     "import/no-unresolved": [2, { "caseSensitive": false }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "func-names": ["error", "as-needed"],
     "import/order": [
       2,
       {
