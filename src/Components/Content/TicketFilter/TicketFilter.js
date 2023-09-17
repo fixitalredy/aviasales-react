@@ -10,23 +10,23 @@ export default function TicketFilter() {
   const filters = [
     {
       name: 'Все',
-      id: '1',
-    },
-    {
-      name: 'Без пересадок',
-      id: '2',
-    },
-    {
-      name: '1 пересадка',
-      id: '3',
-    },
-    {
-      name: '2 пересадки',
       id: '4',
     },
     {
+      name: 'Без пересадок',
+      id: '0',
+    },
+    {
+      name: '1 пересадка',
+      id: '1',
+    },
+    {
+      name: '2 пересадки',
+      id: '2',
+    },
+    {
       name: '3 пересадки',
-      id: '5',
+      id: '3',
     },
   ];
 
@@ -36,20 +36,20 @@ export default function TicketFilter() {
 
   const changeFilters = (e) => {
     const { id, checked } = e.target;
-    if (checked && id !== '1') {
+    if (checked && id !== '4') {
       dispatch(ticketsActions.addFilter([id]));
     }
     if (checked && allFilters.length > 2) {
-      dispatch(ticketsActions.addFilter([id, '1']));
+      dispatch(ticketsActions.addFilter([id, '4']));
     }
-    if (checked && id === '1') {
-      dispatch(ticketsActions.addFilter(['1', '2', '3', '4', '5']));
+    if (checked && id === '4') {
+      dispatch(ticketsActions.addFilter(['4', '0', '1', '2', '3']));
     }
-    if (!checked && id === '1') {
-      dispatch(ticketsActions.removeFilter(['1', '2', '3', '4', '5']));
+    if (!checked && id === '4') {
+      dispatch(ticketsActions.removeFilter(['4', '0', '1', '2', '3']));
     }
-    if (!checked && id !== '1') {
-      dispatch(ticketsActions.removeFilter(['1', id]));
+    if (!checked && id !== '4') {
+      dispatch(ticketsActions.removeFilter(['4', id]));
     }
   };
 

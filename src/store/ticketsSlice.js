@@ -5,8 +5,9 @@ enableMapSet();
 const initialState = {
   allTickets: [],
   visualTickets: [],
+  filteredTickets: [],
   sort: '1',
-  filters: [],
+  filters: [3],
   searchId: null,
   status: null,
   error: null,
@@ -60,7 +61,7 @@ const ticketsSlice = createSlice({
     },
     getMoreTickets(state) {
       state.ticketsAmount += 5;
-      state.visualTickets = state.allTickets.slice(0, state.ticketsAmount);
+      state.visualTickets = state.filteredTickets.slice(0, state.ticketsAmount);
     },
   },
   extraReducers: {
@@ -71,7 +72,12 @@ const ticketsSlice = createSlice({
     [fetchTickets.fulfilled]: (state, action) => {
       state.status = 'resolved';
       state.allTickets = action.payload;
-      state.visualTickets = state.allTickets.slice(0, 5);
+      state.filteredTickets = state.allTickets.filter((ticket) =>
+        state.filters.includes(
+          ticket.segments[0].stops.length + ticket.segments[1].stops.length
+        )
+      );
+      state.visualTickets = state.filteredTickets.slice(0, 5);
     },
     [fetchTickets.rejected]: (state, action) => {
       state.error = action.payload;
