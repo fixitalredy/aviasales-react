@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { enableMapSet } from 'immer';
 
 enableMapSet();
-
 const initialState = {
-  tickets: [],
+  allTickets: [],
+  visualTickets: [],
   sort: '1',
   filters: [],
   searchId: null,
@@ -15,10 +15,8 @@ const initialState = {
 export const fetchTickets = createAsyncThunk(
   'tickets/fetchTickets',
   // eslint-disable-next-line no-unused-vars
-  async (id, { rejectWithValue, getState }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const state = getState();
-      console.log(state);
       let res = await fetch(
         `https://aviasales-test-api.kata.academy/tickets?searchId=${id}`
       );
@@ -26,7 +24,7 @@ export const fetchTickets = createAsyncThunk(
         throw new Error();
       }
       res = await res.json();
-      const result = res.tickets.slice(0, state.ticketsAmount);
+      const result = res.tickets;
       return result;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -62,6 +60,7 @@ const ticketsSlice = createSlice({
     },
     getMoreTickets(state) {
       state.ticketsAmount += 5;
+      state.visualTickets = state.allTickets.slice(0, state.ticketsAmount);
     },
   },
   extraReducers: {
@@ -71,7 +70,8 @@ const ticketsSlice = createSlice({
     },
     [fetchTickets.fulfilled]: (state, action) => {
       state.status = 'resolved';
-      state.tickets = action.payload;
+      state.allTickets = action.payload;
+      state.visualTickets = state.allTickets.slice(0, 5);
     },
     [fetchTickets.rejected]: (state, action) => {
       state.error = action.payload;

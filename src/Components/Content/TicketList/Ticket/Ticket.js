@@ -1,12 +1,19 @@
 import React from 'react';
 import { Card, Row, Col } from 'antd';
 import add from 'date-fns/add';
+// import { useSelector } from 'react-redux';
 
 import styles from './Ticket.module.scss';
 
 export default function Ticket({ price, carrier, segments }) {
   const firstSegment = segments[0];
   const secondSegment = segments[1];
+
+  // const sortingSelector = (state) => ({
+  //   filters: state.fiters,
+  //   sort: state.sort,
+  // });
+  // const sortingStates = useSelector(sortingSelector);
 
   const ticketMake = (segment, type) => {
     if (type === 'time') {
@@ -33,7 +40,9 @@ export default function Ticket({ price, carrier, segments }) {
       return `${segment.origin} - ${segment.destination}`;
     }
     if (type === 'duration') {
-      const durationHours = Math.floor(segment.duration / 60);
+      const durationHours = Math.floor(segment.duration / 60)
+        .toString()
+        .padStart(2, '00');
       const durationMinutes = Math.round(
         ((segment.duration / 60) % 1).toFixed(2) * 60
       )

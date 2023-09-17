@@ -12,7 +12,7 @@ export default function TicketList() {
   const getMoreTicketsHandler = () => {
     dispatch(ticketsActions.getMoreTickets());
   };
-  const selectorTickets = (state) => state.tickets;
+  const selectorTickets = (state) => state.visualTickets;
   const tickets = useSelector(selectorTickets);
   return (
     <div className="list-container">
