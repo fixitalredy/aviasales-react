@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'antd';
+import { uid } from 'uid';
 
 import { ticketsActions } from '../../../store/ticketsSlice';
 
@@ -21,7 +22,7 @@ export default function TicketList() {
           <Ticket
             price={ticket.price}
             carrier={ticket.carrier}
-            key={ticket.price}
+            key={uid()}
             segments={ticket.segments}
           />
         ))}

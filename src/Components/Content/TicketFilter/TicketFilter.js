@@ -1,5 +1,6 @@
-import { Card } from 'antd';
-import React from 'react';
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { Card, Spin } from 'antd';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ticketsActions } from '../../../store/ticketsSlice';
@@ -33,6 +34,10 @@ export default function TicketFilter() {
   const dispatch = useDispatch();
   const selector = (state) => state.filters;
   const allFilters = useSelector(selector);
+  const selectorTickets = (state) => state.allTickets;
+  const allTickets = useSelector(selectorTickets);
+  const selectorStatus = (state) => state.status;
+  const status = useSelector(selectorStatus);
 
   const changeFilters = (e) => {
     const { id, checked } = e.target;
@@ -51,11 +56,17 @@ export default function TicketFilter() {
     if (!checked && id !== '4') {
       dispatch(ticketsActions.removeFilter(['4', id]));
     }
+    dispatch(ticketsActions.filterTickets());
   };
+
+  useEffect(() => {
+    if (allTickets.length === 500 || status === 'resolved') {
+      dispatch(ticketsActions.filterTickets());
+    }
+  }, [dispatch, allTickets, status]);
 
   return (
     <div className={styles.container}>
-      {allFilters}
       <Card
         className={styles.content}
         bodyStyle={{
@@ -73,6 +84,7 @@ export default function TicketFilter() {
                 className={styles.input}
                 onChange={changeFilters}
                 checked={allFilters.includes(filter.id)}
+                readOnly
               />
               <label htmlFor={filter.id} className={styles.name}>
                 {filter.name}
@@ -81,6 +93,9 @@ export default function TicketFilter() {
           ))}
         </form>
       </Card>
+      {status === 'loading' ? (
+        <Spin style={{ marginTop: '20px' }} size="large" />
+      ) : null}
     </div>
   );
 }

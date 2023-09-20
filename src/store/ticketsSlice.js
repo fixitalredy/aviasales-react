@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { enableMapSet } from 'immer';
 
@@ -7,7 +8,7 @@ const initialState = {
   visualTickets: [],
   filteredTickets: [],
   sort: '1',
-  filters: [3],
+  filters: ['4', '0', '1', '2', '3'],
   searchId: null,
   status: null,
   error: null,
@@ -15,23 +16,38 @@ const initialState = {
 };
 export const fetchTickets = createAsyncThunk(
   'tickets/fetchTickets',
-  // eslint-disable-next-line no-unused-vars
-  async (id, { rejectWithValue }) => {
-    try {
-      let res = await fetch(
-        `https://aviasales-test-api.kata.academy/tickets?searchId=${id}`
-      );
-      if (!res.ok) {
-        throw new Error();
+  // eslint-disable-next-line no-unused-vars, consistent-return
+  async (id, { rejectWithValue, dispatch }) => {
+    let stop = false;
+
+    while (!stop) {
+      try {
+        let res = await fetch(
+          `https://aviasales-test-api.kata.academy/tickets?searchId=${id}`
+        );
+        if (!res.ok) {
+          throw new Error();
+        }
+        res = await res.json();
+        const ticketsArr = res.tickets;
+        stop = res.stop;
+        // eslint-disable-next-line no-use-before-define
+        dispatch(ticketsActions.addFirstPack(ticketsArr));
+      } catch (err) {
+        if (!stop) {
+          // eslint-disable-next-line no-continue
+          continue;
+        } else rejectWithValue(err);
       }
-      res = await res.json();
-      const result = res.tickets;
-      return result;
-    } catch (err) {
-      return rejectWithValue(err.message);
     }
   }
 );
+
+function calculateOptimalTicket(ticket) {
+  return (
+    ticket.price + (ticket.segments[0].duration + ticket.segments[1].duration)
+  );
+}
 
 const ticketsSlice = createSlice({
   name: 'tickets',
@@ -63,21 +79,46 @@ const ticketsSlice = createSlice({
       state.ticketsAmount += 5;
       state.visualTickets = state.filteredTickets.slice(0, state.ticketsAmount);
     },
+    filterTickets(state) {
+      state.filteredTickets = state.allTickets.filter((ticket) =>
+        state.filters.includes(
+          `${ticket.segments[0].stops.length + ticket.segments[1].stops.length}`
+        )
+      );
+      state.visualTickets = state.filteredTickets.slice(0, 5);
+    },
+    sortTickets(state) {
+      if (state.sort === '1') {
+        state.filteredTickets = [...state.filteredTickets].sort(
+          (a, b) => a.price - b.price
+        );
+      }
+      if (state.sort === '2') {
+        state.filteredTickets = [...state.filteredTickets].sort(
+          (a, b) =>
+            a.segments[0].duration +
+            a.segments[1].duration -
+            (b.segments[0].duration + b.segments[1].duration)
+        );
+      }
+      if (state.sort === '3') {
+        state.filteredTickets = [...state.filteredTickets].sort(
+          (a, b) => calculateOptimalTicket(a) - calculateOptimalTicket(b)
+        );
+      }
+      state.visualTickets = state.filteredTickets.slice(0, 5);
+    },
+    addFirstPack(state, action) {
+      state.allTickets = state.allTickets.concat(action.payload);
+    },
   },
   extraReducers: {
     [fetchTickets.pending]: (state) => {
       state.status = 'loading';
       state.error = null;
     },
-    [fetchTickets.fulfilled]: (state, action) => {
+    [fetchTickets.fulfilled]: (state) => {
       state.status = 'resolved';
-      state.allTickets = action.payload;
-      state.filteredTickets = state.allTickets.filter((ticket) =>
-        state.filters.includes(
-          ticket.segments[0].stops.length + ticket.segments[1].stops.length
-        )
-      );
-      state.visualTickets = state.filteredTickets.slice(0, 5);
     },
     [fetchTickets.rejected]: (state, action) => {
       state.error = action.payload;

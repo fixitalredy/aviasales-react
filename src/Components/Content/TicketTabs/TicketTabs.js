@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConfigProvider, Tabs } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ticketsActions } from '../../../store/ticketsSlice';
 import TicketList from '../TicketList/TicketList';
@@ -26,7 +26,8 @@ const items = [
 
 export default function TicketTabs() {
   const dispatchFn = useDispatch();
-
+  const selectorFilteredTickets = (state) => state.filteredTickets;
+  const filteredTickets = useSelector(selectorFilteredTickets);
   const changeSortHandler = (key) => {
     if (key === '1') {
       dispatchFn(ticketsActions.sortCheap());
@@ -37,7 +38,13 @@ export default function TicketTabs() {
     if (key === '3') {
       dispatchFn(ticketsActions.sortOptimal());
     }
+    dispatchFn(ticketsActions.sortTickets());
   };
+  useEffect(() => {
+    if (filteredTickets.length !== 0) {
+      dispatchFn(ticketsActions.sortTickets());
+    }
+  }, [dispatchFn, filteredTickets.length]);
   return (
     <ConfigProvider
       theme={{

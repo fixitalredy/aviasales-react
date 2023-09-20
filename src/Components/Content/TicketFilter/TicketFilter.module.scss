@@ -3,6 +3,7 @@
   height: 252px;
   box-shadow: 0px 2px 5px 0px #c7c7c7;
   border-radius: 10px;
+  text-align: center;
 }
 .content {
   height: 100%;
@@ -23,10 +24,10 @@
   padding-left: 20px;
 }
 .item:hover {
-  background-color: #F1FCFF;
+  background-color: #f1fcff;
 }
 .input {
-  visibility: hidden;
+  opacity: 0;
   width: 22px;
 }
 .name {
@@ -41,11 +42,10 @@
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 10px;
-  padding-left: 20px;
 }
 .name::before {
   content: '';
-  border: 1px solid #2196F3;
+  border: 1px solid #2196f3;
   border-radius: 5px;
   display: inline-block;
   width: 20px;
@@ -54,6 +54,10 @@
   background-size: cover;
   cursor: pointer;
 }
+.name::before :focus {
+  background-color: #1677ff;
+}
+
 .input:checked + .name::after {
   content: '';
   border-bottom: 2px solid #1677ff;
@@ -63,4 +67,13 @@
   rotate: 45deg;
   position: absolute;
   left: 7px;
+}
+.input:focus + .name::before {
+  border: 2px solid #2068a3;
+}
+.input:focus + .name::after {
+  border-bottom-color: #2068a3;
+  border-right-color: #2068a3;
+  width: 7px;
+  height: 14px;
 }

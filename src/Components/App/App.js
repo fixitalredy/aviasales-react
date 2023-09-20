@@ -11,7 +11,6 @@ function App() {
   const dispatch = useDispatch();
   const selectorId = (state) => state.searchId;
   const searchId = useSelector(selectorId);
-
   useEffect(() => {
     const fetchData = async () => {
       let res = await fetch('https://aviasales-test-api.kata.academy/search');
