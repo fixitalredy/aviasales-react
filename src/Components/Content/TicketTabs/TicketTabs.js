@@ -33,17 +33,32 @@ export default function TicketTabs() {
     {
       key: '1',
       label: 'САМЫЙ ДЕШЕВЫЙ',
-      children: <TicketList />,
+      children:
+        filteredTickets.length === 0 ? (
+          <p>По заданным фильтрам билетов не найдено</p>
+        ) : (
+          <TicketList />
+        ),
     },
     {
       key: '2',
       label: 'САМЫЙ БЫСТРЫЙ',
-      children: <TicketList />,
+      children:
+        filteredTickets.length === 0 ? (
+          <p>По заданным фильтрам билетов не найдено</p>
+        ) : (
+          <TicketList />
+        ),
     },
     {
       key: '3',
       label: 'ОПТИМАЛЬНЫЙ',
-      children: <TicketList />,
+      children:
+        filteredTickets.length === 0 ? (
+          <p>По заданным фильтрам билетов не найдено</p>
+        ) : (
+          <TicketList />
+        ),
     },
   ];
   return (

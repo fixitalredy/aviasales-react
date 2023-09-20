@@ -39,7 +39,6 @@ export default function Content() {
         <button
           className={styles.onTop}
           type="button"
-          id="myBtn"
           style={buttonStyle}
           onClick={handleTop}
           onScroll={handleScroll}
