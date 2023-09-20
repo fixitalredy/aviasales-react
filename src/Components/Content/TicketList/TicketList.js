@@ -17,7 +17,7 @@ export default function TicketList() {
   const tickets = useSelector(selectorTickets);
   return (
     <div className="list-container">
-      <ul>
+      <ul className="list-content">
         {tickets.map((ticket) => (
           <Ticket
             price={ticket.price}

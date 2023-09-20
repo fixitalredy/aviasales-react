@@ -6,28 +6,11 @@ import { ticketsActions } from '../../../store/ticketsSlice';
 import TicketList from '../TicketList/TicketList';
 import './TicketTabs.scss';
 
-const items = [
-  {
-    key: '1',
-    label: 'САМЫЙ ДЕШЕВЫЙ',
-    children: <TicketList />,
-  },
-  {
-    key: '2',
-    label: 'САМЫЙ БЫСТРЫЙ',
-    children: <TicketList />,
-  },
-  {
-    key: '3',
-    label: 'ОПТИМАЛЬНЫЙ',
-    children: <TicketList />,
-  },
-];
-
 export default function TicketTabs() {
   const dispatchFn = useDispatch();
   const selectorFilteredTickets = (state) => state.filteredTickets;
   const filteredTickets = useSelector(selectorFilteredTickets);
+
   const changeSortHandler = (key) => {
     if (key === '1') {
       dispatchFn(ticketsActions.sortCheap());
@@ -45,6 +28,24 @@ export default function TicketTabs() {
       dispatchFn(ticketsActions.sortTickets());
     }
   }, [dispatchFn, filteredTickets.length]);
+
+  const items = [
+    {
+      key: '1',
+      label: 'САМЫЙ ДЕШЕВЫЙ',
+      children: <TicketList />,
+    },
+    {
+      key: '2',
+      label: 'САМЫЙ БЫСТРЫЙ',
+      children: <TicketList />,
+    },
+    {
+      key: '3',
+      label: 'ОПТИМАЛЬНЫЙ',
+      children: <TicketList />,
+    },
+  ];
   return (
     <ConfigProvider
       theme={{

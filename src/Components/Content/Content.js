@@ -29,10 +29,10 @@ export default function Content() {
   return (
     <main className={styles.content}>
       <Row className={styles.row}>
-        <Col lg={8} className={styles.colleft}>
+        <Col lg={8} md={8} sm={0} xs={0} className={styles.colleft}>
           <TicketFilter />
         </Col>
-        <Col lg={16} className={styles.colright}>
+        <Col lg={16} md={16} sm={24} xs={24} className={styles.colright}>
           <TicketTabs />
         </Col>
 

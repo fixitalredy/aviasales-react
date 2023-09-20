@@ -71,10 +71,10 @@ export default function Ticket({ price, carrier, segments }) {
         bodyStyle={{ padding: '22px', fontFamily: 'open-sans' }}
       >
         <Row className={styles.row}>
-          <Col className={styles.col} lg={18}>
+          <Col className={styles.col} lg={18} md={18} sm={18} xs={14}>
             {`${price} ₽`}
           </Col>
-          <Col className={styles.col} lg={6}>
+          <Col className={styles.col} lg={6} md={6} sm={6} xs={10}>
             <img
               src={`//pics.avs.io/99/36/${carrier}.png`}
               alt="carrier logo"
@@ -83,7 +83,7 @@ export default function Ticket({ price, carrier, segments }) {
           </Col>
         </Row>
         <Row className={styles.row}>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={10}>
             <Row className={styles.subrow}>
               {ticketMake(firstSegment, 'way')}
             </Row>
@@ -91,13 +91,13 @@ export default function Ticket({ price, carrier, segments }) {
               {ticketMake(firstSegment, 'time')}
             </Row>
           </Col>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={6}>
             <Row className={styles.subrow}>В ПУТИ</Row>
             <Row className={styles.subrow}>
               {ticketMake(firstSegment, 'duration')}
             </Row>
           </Col>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={8}>
             <Row className={styles.subrow}>
               {ticketMake(firstSegment, 'stopscount')}
             </Row>
@@ -107,7 +107,7 @@ export default function Ticket({ price, carrier, segments }) {
           </Col>
         </Row>
         <Row className={styles.row}>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={10}>
             <Row className={styles.subrow}>
               {ticketMake(secondSegment, 'way')}
             </Row>
@@ -115,13 +115,13 @@ export default function Ticket({ price, carrier, segments }) {
               {ticketMake(secondSegment, 'time')}
             </Row>
           </Col>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={6}>
             <Row className={styles.subrow}>В ПУТИ</Row>
             <Row className={styles.subrow}>
               {ticketMake(secondSegment, 'duration')}
             </Row>
           </Col>
-          <Col className={styles.col} lg={8}>
+          <Col className={styles.col} lg={8} md={8} sm={8} xs={8}>
             <Row className={styles.subrow}>
               {ticketMake(secondSegment, 'stopscount')}
             </Row>

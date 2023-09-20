@@ -22,7 +22,7 @@
 }
 .subrow:nth-child(1) {
   height: 18px;
-  color: #A0B0B9;
+  color: #a0b0b9;
   font-weight: 500;
   font-size: 12px;
 }
@@ -34,3 +34,10 @@
   height: 50px;
   font-weight: 600;
 }
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+
+

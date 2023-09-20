@@ -4,3 +4,11 @@
   align-items: center;
   width: 502px;
 }
+@media (max-width: 768px) {
+  .list-container {
+    width: 100%;
+  }
+  .list-content {
+    width: 100%;
+  }
+}
